@@ -8,7 +8,12 @@ import numpy as np
 load_dotenv()
 
 #This app:
-import getth #or getth_sim as getth
+if os.getenv('ISRPI') == 'yes':
+    print("using adafruit_dht... (ISRPI=yes)")
+    import getth
+else:
+    print('using getth_sim to generate random numbers... (ISPRI<>yes)')
+    import getth_sim as getth
 
 
 def mariadb_cursor():
