@@ -17,7 +17,7 @@ table name: temphumi
 +-------+---------------------+------+-----+---------------------+----------------+
 ```
 Create a custom user and grant privileges on 'rpi.*'.
-To grant remote access to your database, you need to change your /etc/mysql/mariadb.conf from ```bind-address = 127.0.0.1``` to ```bind-address = 0.0.0.0```
+Tip: To grant remote access to your database, you need to change your /etc/mysql/mariadb.conf from ```bind-address = 127.0.0.1``` to ```bind-address = 0.0.0.0```
 
 
 ### Create environments
