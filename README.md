@@ -22,7 +22,7 @@ To grant remote access to your database, you need to change your /etc/mysql/mari
 
 
 ### Create environments
-```Touch .env``` to create a file in your project folder and with these variables:
+```Touch .env``` to create a file in your project folder with the following variables:
 DBUSER=...
 DBPASS=...
 DBHOST=localhost
