@@ -4,10 +4,9 @@ Raspberry Temperature and Humidity database
 ## Installation:
 ### Create Mariadb database
 Install mariadb in your raspberry pi and create this structure:
+```
 database name: rpi
 table name: temphumi
-
-```
 +-------+---------------------+------+-----+---------------------+----------------+
 | Field | Type                | Null | Key | Default             | Extra          |
 +-------+---------------------+------+-----+---------------------+----------------+
