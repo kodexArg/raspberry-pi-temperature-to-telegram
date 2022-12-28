@@ -1,13 +1,22 @@
 import time
+import logging
 import sys
 import os
-from dotenv import load_dotenv
+
+import dotenv
 import mariadb
 import numpy as np
 
-load_dotenv()
+#Loading environment variables
+dotenv.load_dotenv()
 
-#This app:
+#Enable logging
+logging.basicConfig(
+        format"%(asctime)s - %(name)s - %(levelname)s - %(message)s"), level=logging.INFO
+)
+logger = logging.getLogger(__name__)
+
+#Import adafruit_dht on Raspberry PI or a fake number generator
 if os.getenv('ISRPI') == 'yes':
     print("using adafruit_dht... (ISRPI=yes)")
     import getth

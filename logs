@@ -1,0 +1,423 @@
+2022-12-26 12:03:35,382 - apscheduler.scheduler - INFO - Scheduler started
+2022-12-26 12:03:35,382 - telegram.ext._application - INFO - Application started
+2022-12-26 12:07:32,800 - telegram.ext._application - INFO - Application is stopping. This might take a moment.
+2022-12-26 12:07:32,801 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2022-12-26 12:07:32,811 - telegram.ext._application - INFO - Application.stop() complete
+2022-12-26 12:07:35,351 - apscheduler.scheduler - INFO - Scheduler started
+2022-12-26 12:07:35,351 - telegram.ext._application - INFO - Application started
+2022-12-26 15:44:23,871 - telegram.ext._updater - ERROR - Error while getting Updates: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:23,872 - telegram.ext._application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 186, in connect_tcp
+    addr_obj = ip_address(remote_host)
+  File "/usr/lib/python3.10/ipaddress.py", line 54, in ip_address
+    raise ValueError(f'{address!r} does not appear to be an IPv4 or IPv6 address')
+ValueError: 'api.telegram.org' does not appear to be an IPv4 or IPv6 address
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 10, in map_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 111, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 189, in connect_tcp
+    gai_res = await getaddrinfo(
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 253, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 237, in handle_async_request
+    response = await connection.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 86, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 63, in handle_async_request
+    stream = await self._connect(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 111, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/auto.py", line 29, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 109, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc)
+httpcore.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 183, in do_request
+    res = await self._client.request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1533, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1620, in send
+    response = await self._send_handling_auth(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1648, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1685, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1722, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 603, in _network_loop_retry
+    if not await action_cb():
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 329, in polling_action_cb
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 314, in polling_action_cb
+    updates = await self.bot.get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 526, in get_updates
+    updates = await super().get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 316, in decorator
+    result = await func(*args, **kwargs)  # skipcq: PYL-E1102
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 3479, in get_updates
+    await self._post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 404, in _post
+    return await self._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 308, in _do_post
+    return await super()._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 435, in _do_post
+    return await request.post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 167, in post
+    result = await self._request_wrapper(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 290, in _request_wrapper
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 276, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 204, in do_request
+    raise NetworkError(f"httpx HTTPError: {err}") from err
+telegram.error.NetworkError: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:24,874 - telegram.ext._updater - ERROR - Error while getting Updates: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:24,874 - telegram.ext._application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 186, in connect_tcp
+    addr_obj = ip_address(remote_host)
+  File "/usr/lib/python3.10/ipaddress.py", line 54, in ip_address
+    raise ValueError(f'{address!r} does not appear to be an IPv4 or IPv6 address')
+ValueError: 'api.telegram.org' does not appear to be an IPv4 or IPv6 address
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 10, in map_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 111, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 189, in connect_tcp
+    gai_res = await getaddrinfo(
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 253, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 237, in handle_async_request
+    response = await connection.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 86, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 63, in handle_async_request
+    stream = await self._connect(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 111, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/auto.py", line 29, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 109, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc)
+httpcore.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 183, in do_request
+    res = await self._client.request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1533, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1620, in send
+    response = await self._send_handling_auth(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1648, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1685, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1722, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 603, in _network_loop_retry
+    if not await action_cb():
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 329, in polling_action_cb
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 314, in polling_action_cb
+    updates = await self.bot.get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 526, in get_updates
+    updates = await super().get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 316, in decorator
+    result = await func(*args, **kwargs)  # skipcq: PYL-E1102
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 3479, in get_updates
+    await self._post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 404, in _post
+    return await self._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 308, in _do_post
+    return await super()._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 435, in _do_post
+    return await request.post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 167, in post
+    result = await self._request_wrapper(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 290, in _request_wrapper
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 276, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 204, in do_request
+    raise NetworkError(f"httpx HTTPError: {err}") from err
+telegram.error.NetworkError: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:26,379 - telegram.ext._updater - ERROR - Error while getting Updates: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:26,379 - telegram.ext._application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 186, in connect_tcp
+    addr_obj = ip_address(remote_host)
+  File "/usr/lib/python3.10/ipaddress.py", line 54, in ip_address
+    raise ValueError(f'{address!r} does not appear to be an IPv4 or IPv6 address')
+ValueError: 'api.telegram.org' does not appear to be an IPv4 or IPv6 address
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 10, in map_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 111, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 189, in connect_tcp
+    gai_res = await getaddrinfo(
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 253, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 237, in handle_async_request
+    response = await connection.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 86, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 63, in handle_async_request
+    stream = await self._connect(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 111, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/auto.py", line 29, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 109, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc)
+httpcore.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 183, in do_request
+    res = await self._client.request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1533, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1620, in send
+    response = await self._send_handling_auth(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1648, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1685, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1722, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 603, in _network_loop_retry
+    if not await action_cb():
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 329, in polling_action_cb
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 314, in polling_action_cb
+    updates = await self.bot.get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 526, in get_updates
+    updates = await super().get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 316, in decorator
+    result = await func(*args, **kwargs)  # skipcq: PYL-E1102
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 3479, in get_updates
+    await self._post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 404, in _post
+    return await self._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 308, in _do_post
+    return await super()._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 435, in _do_post
+    return await request.post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 167, in post
+    result = await self._request_wrapper(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 290, in _request_wrapper
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 276, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 204, in do_request
+    raise NetworkError(f"httpx HTTPError: {err}") from err
+telegram.error.NetworkError: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:28,633 - telegram.ext._updater - ERROR - Error while getting Updates: httpx HTTPError: [Errno -3] Temporary failure in name resolution
+2022-12-26 15:44:28,633 - telegram.ext._application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 186, in connect_tcp
+    addr_obj = ip_address(remote_host)
+  File "/usr/lib/python3.10/ipaddress.py", line 54, in ip_address
+    raise ValueError(f'{address!r} does not appear to be an IPv4 or IPv6 address')
+ValueError: 'api.telegram.org' does not appear to be an IPv4 or IPv6 address
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 10, in map_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 111, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/anyio/_core/_sockets.py", line 189, in connect_tcp
+    gai_res = await getaddrinfo(
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 253, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 237, in handle_async_request
+    response = await connection.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 86, in handle_async_request
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 63, in handle_async_request
+    stream = await self._connect(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 111, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/auto.py", line 29, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/backends/asyncio.py", line 109, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc)
+httpcore.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 183, in do_request
+    res = await self._client.request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1533, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1620, in send
+    response = await self._send_handling_auth(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1648, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1685, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1722, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno -3] Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 603, in _network_loop_retry
+    if not await action_cb():
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 329, in polling_action_cb
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_updater.py", line 314, in polling_action_cb
+    updates = await self.bot.get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 526, in get_updates
+    updates = await super().get_updates(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 316, in decorator
+    result = await func(*args, **kwargs)  # skipcq: PYL-E1102
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 3479, in get_updates
+    await self._post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 404, in _post
+    return await self._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 308, in _do_post
+    return await super()._do_post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/_bot.py", line 435, in _do_post
+    return await request.post(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 167, in post
+    result = await self._request_wrapper(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 290, in _request_wrapper
+    raise exc
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 276, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/kodex/Projects/Raspberry-Pi/app/.venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 204, in do_request
+    raise NetworkError(f"httpx HTTPError: {err}") from err
+telegram.error.NetworkError: httpx HTTPError: [Errno -3] Temporary failure in name resolution

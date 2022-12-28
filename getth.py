@@ -1,23 +1,40 @@
+from time import sleep
 import board
 import adafruit_dht
 import numpy as np
 
-dht = adafruit_dht.DHT11(board.D4)
+ATTEMPT = 5
+TIME_RETRY = 1
+
+dht = adafruit_dht.DHT11(board.D4, use_pulseio=False)
+
+
+def dht_reading(ask_for):
+    for attempt in range(ATTEMPT):
+        try:
+            if ask_for == "temperature":
+                val = np.int32(dht.temperature)
+            elif ask_for == "humidity":
+                val = np.int32(dht.humidity)
+            else:
+                raise Exception('Valid choices are "temperature" or "humidity"')
+        except:
+            val = np.nan
+            print(f"fail reading in attempt {attempt+1}")
+            sleep(TIME_RETRY)
+
+        if not np.isnan(val):
+            break
+
+    return val
+
 
 def get_temp():
-    try:
-        t = np.float64(dht.temperature)
-    except:
-        t = np.nan
-    return t
+    return dht_reading("temperature")   
 
 
 def get_humi():
-    try:
-        h = np.float64(dht.humidity)
-    except:
-        h = np.nan
-    return h
+    return dht_reading("humidity")  
 
 
 def getth():
