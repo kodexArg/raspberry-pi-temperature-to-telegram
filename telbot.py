@@ -38,7 +38,7 @@ async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text(text=f"Selected: {query.data}")
+    await query.message.reply_text(f"Selected: {query.data}")
 
 
 def main() -> None:
