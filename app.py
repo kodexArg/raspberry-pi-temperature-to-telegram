@@ -12,9 +12,10 @@ dotenv.load_dotenv()
 
 #Enable logging
 logging.basicConfig(
-        format"%(asctime)s - %(name)s - %(levelname)s - %(message)s"), level=logging.INFO
+        format("%(asctime)s - %(name)s - %(levelname)s - %(message)s"), level=logging.INFO
 )
 logger = logging.getLogger(__name__)
+
 
 #Import adafruit_dht on Raspberry PI or a fake number generator
 if os.getenv('ISRPI') == 'yes':
@@ -51,6 +52,9 @@ def if_nan_go_null(value):
 
 
 def mariadb_inserts():
+    """
+        this function repeats in a loop
+    """
     cur = mariadb_cursor()
     pause_seconds = 5
     while True:
