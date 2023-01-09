@@ -10,8 +10,8 @@ from loguru import logger
 from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 # from pandas import DataFrame, read_sql #Prolly a good idea to implement in raspberry pi....
@@ -38,6 +38,7 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
     dtini = datetime.now() - timedelta(hours=hours)
     logger.debug(f"Filtering Dataframe by date > {dtini}")
     rdf = df[(df["time"] > dtini)]
+    print(rdf)
 
     # Lower and upper bounds and set outliers to NaN (fix: changed to Mean)
     lb = rdf["temp"].quantile(0.01)
@@ -66,27 +67,21 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
 
 def plotting_df(df: pd.DataFrame, hours: int, tu: str) -> None:
     logger.info("Plotting...")
-    
-    #plt.figure(figsize=(5, 8))
+    ax = px.line(df, x="time", y="Avg C°", title="Temperature C°")
 
-    # sns.lineplot(df, x="time", y="Min C°", c="#B6E3E6")
-    # sns.lineplot(df, x="time", y="Max C°", c="#B6E3E6")
-    # plt.fill_between(df["time"], df["Min C°"], df["Max C°"], color="blue")
-#    sns.set_palette("Set2")
-    #sns.set_theme(style="darkgrid")
-    ax = sns.lineplot(x=df['time'], y="Avg C°", data=df, err_style='bars')
-    #ax.set_title(f"Avg Temperature | {tu}.")
-    #ax.set_ylabel(None)
-    #ax.set_xlabel(None)
-    
-    # plt.xticks(rotation=45)
-
-    # plt.savefig("demo.png")
-    plt.show()
+    # ax.add_trace(go.Scatter(x=df["time"], y=df["Min C°"], line=dict(color="white")))
+    # ax.add_trace(go.Scatter(x=df["time"], y=df["Max C°"], line=dict(color="white"), fill="tonexty"))
+    ax.update_traces(connectgaps=True, showlegend=False)
+    ax.update_yaxes(title=None)
+    ax.update_xaxes(title=None)
+    ax.update_layout(margin=dict(l=0,r=0,b=0,t=0), paper_bgcolor="#e5ecf6")
+    ax.show()
+    ax.update_layout(autosize=False, width=500, height=800)
+    ax.write_image("demo.png")
     return None
 
 
 if __name__ == "__main__":
     df = get_mariadb_data()
-    df = resample_by_time(df, hours=24, tu="1H")
-    plotting_df(df, hours=24, tu="1H")
+    df = resample_by_time(df, hours=96, tu="2H")
+    plotting_df(df, hours=48, tu="15Min")
