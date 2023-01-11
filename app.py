@@ -1,8 +1,8 @@
 import time
-from loguru import logger
 import sys
 import os
 
+from loguru import logger
 import dotenv
 import mariadb
 import numpy as np
@@ -13,14 +13,14 @@ dotenv.load_dotenv()
 
 #Import adafruit_dht on Raspberry PI or a fake number generator
 if os.getenv('ISRPI') == 'yes':
-    print("using adafruit_dht... (ISRPI=yes)")
+    logger.info("using adafruit_dht... (ISRPI=yes)")
     import getth
 else:
-    print('using getth_sim to generate random numbers... (ISPRI<>yes)')
+    logger.info('using getth_sim to generate random numbers... (ISPRI<>yes)')
     import getth_sim as getth
 
 
-def mariadb_cursor():
+def mariadb_cursor() -> mariadb.Cursor:
     try:
         conn = mariadb.connect(
             user = os.getenv('DBUSER','root'),
@@ -32,7 +32,7 @@ def mariadb_cursor():
         )
 
     except mariadb.Error as e:
-        print(f"Exit with error:\n{e}")
+        logger.error(f"Exit with error:\n{e}")
         sys.exit(1)
 
     return conn.cursor()
@@ -45,27 +45,29 @@ def if_nan_go_null(value):
         return np.int32(value)
 
 
-def mariadb_inserts():
-    """
-        this function repeats in a loop
-    """
+def mariadb_inserts() -> None:
     cur = mariadb_cursor()
-    pause_seconds = 5
     while True:
         try:
-            t = if_nan_go_null(getth.get_temp()) 
+            t = if_nan_go_null(getth.get_temp())
             h = if_nan_go_null(getth.get_humi())
             qry = f"INSERT INTO temphumi (temp, humi) VALUES ({t}, {h})"
             cur.execute(qry)
             if __name__ == "__main__":
-                print(f"Timestamp: {time.strftime('%T')}\nTemperature: {t}C°  \nHumidity: {h} %")
+                logger.debug(f"\nTimestamp: {time.strftime('%T')}\nTemperature: {t}C°  \nHumidity: {h} %")
 
         except ValueError as e:
-            print(f"Fail: \n{e}")
+            logger.error(f"Fail: \n{e}")
+            # todo: sending error to telegram?
+            sys.exit()
         
+
+def insert_loop(pause_seconds: float = 15) -> None:
+    while True:
+        mariadb_inserts()
         time.sleep(pause_seconds)
 
 
 if __name__ == "__main__":
-    print("Staring as __main__:")
-    mariadb_inserts()
+    logger.debug("Staring as __main__:")
+    insert_loop(pause_seconds=15)

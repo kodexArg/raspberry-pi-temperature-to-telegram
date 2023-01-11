@@ -1,32 +1,42 @@
 # Loggin...
 from loguru import logger
+import cv2
 
 # Imports...
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
-import cv2
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    logger.info('Initialized...')
     await update.message.reply_text("Initialized...")
 
 
-async def take_picture(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_photo(photo=open(func_take_picture(), 'rb'))
+async def send_picture(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    logger.info('sending picture...')
+    await update.message.reply_photo(photo=open(func_send_picture(), 'rb'))
+
+
+async def send_chart(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    logger.info('sending chart...')
+    await update.message.reply_photo(photo=open(func_send_chart(), 'rb'))
 
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f"user {update.message.from_user.first_name} {update.message.from_user.last_name} say {update.message.text}")
 
 
-def func_take_picture():
-    logger.warning("I'm trying to take a picture")
+def func_send_picture() -> str:
     picpath = 'capture.jpg'
     capture = cv2.VideoCapture(0)
     return_value, image = capture.read()
     cv2.imwrite(picpath, image)
     del(capture)
     return picpath
+    
+
+def func_send_chart() -> str:
+    return 'chart_th.png' #doh...
     
 
 def main() -> None:
@@ -37,14 +47,14 @@ def main() -> None:
 
     # Commands handlers
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("take_picture", take_picture))
+    application.add_handler(CommandHandler("picture", send_picture))
+    application.add_handler(CommandHandler("chart", send_chart))
 
     # Non-commands messages
     application.add_handler(MessageHandler(filters=filters.TEXT & ~filters.COMMAND, callback=echo))
 
     #Start the bot
     application.run_polling()
-
 
 
 if __name__ == "__main__":

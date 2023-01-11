@@ -65,23 +65,26 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
     return rdf
 
 
-def plotting_df(df: pd.DataFrame, hours: int, tu: str) -> None:
+def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th.png") -> None:
     logger.info("Plotting...")
     ax = px.line(df, x="time", y="Avg C°", title="Temperature C°")
-
-    # ax.add_trace(go.Scatter(x=df["time"], y=df["Min C°"], line=dict(color="white")))
-    # ax.add_trace(go.Scatter(x=df["time"], y=df["Max C°"], line=dict(color="white"), fill="tonexty"))
     ax.update_traces(connectgaps=True, showlegend=False)
     ax.update_yaxes(title=None)
     ax.update_xaxes(title=None)
-    ax.update_layout(margin=dict(l=0,r=0,b=0,t=0), paper_bgcolor="#e5ecf6")
-    ax.show()
+    ax.update_layout(margin=dict(l=0, r=0, b=0, t=0), paper_bgcolor="#e5ecf6")
+    if __name__ == "__main__()":
+        ax.show()
     ax.update_layout(autosize=False, width=500, height=800)
-    ax.write_image("demo.png")
+    ax.write_image(filename)
+    return None
+
+
+def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart.png") -> None:
+    df = get_mariadb_data()
+    df = resample_by_time(df, hours=96, tu="2H")
+    plotting_df(df, hours, tu, filename)
     return None
 
 
 if __name__ == "__main__":
-    df = get_mariadb_data()
-    df = resample_by_time(df, hours=96, tu="2H")
-    plotting_df(df, hours=48, tu="15Min")
+    draw_chart()

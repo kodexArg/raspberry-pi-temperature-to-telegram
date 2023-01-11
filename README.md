@@ -1,6 +1,5 @@
 # raspberry-temp-humi
-This application injects temperature and humidity from the DHT11 sensor installed on a Raspberry PII to a mariadb database hosted on the same raspberry pi.
-The database replicate to a slave RDS but this is (currently) not included in this project.
+This application injects temperature and humidity from the DHT11 sensor installed on a Raspberry PI to a mariadb database.
 
 ## Installation:
 ### Create Mariadb database
