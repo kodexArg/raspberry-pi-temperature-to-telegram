@@ -79,11 +79,20 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     return None
 
 
-def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart.png") -> None:
-    df = get_mariadb_data()
-    df = resample_by_time(df, hours=96, tu="2H")
-    plotting_df(df, hours, tu, filename)
-    return None
+def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart.png") -> bool:
+    try:
+        df = get_mariadb_data()
+        df = resample_by_time(df, hours=96, tu="2H")
+        plotting_df(df, hours, tu, filename)
+    except:
+        logger.error(
+            f"""
+            Somethng went wrong plotting the chart. The function receive these values:
+            \n  hours: {hours}\n  time unit (tu): {tu}\n  Filename: {filename}
+            """
+        )
+        return False
+    return True
 
 
 if __name__ == "__main__":

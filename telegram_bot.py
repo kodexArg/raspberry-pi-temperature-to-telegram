@@ -1,10 +1,10 @@
-# Loggin...
 from loguru import logger
 import cv2
 
-# Imports...
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
+
+from chart_th import draw_chart
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -36,8 +36,12 @@ def func_send_picture() -> str:
     
 
 def func_send_chart() -> str:
-    return 'chart_th.png' #doh...
-    
+    if draw_chart(hours = 96, tu = "1H", filename = "chart.png"):
+        return 'chart_th.png'
+    else:
+        return False
+
+
 
 def main() -> None:
     """Register handlers and start Bot"""
@@ -57,6 +61,6 @@ def main() -> None:
     application.run_polling()
 
 
+
 if __name__ == "__main__":
     main()
-    
