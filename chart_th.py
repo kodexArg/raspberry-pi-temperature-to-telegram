@@ -72,7 +72,7 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     ax.update_yaxes(title=None)
     ax.update_xaxes(title=None)
     ax.update_layout(margin=dict(l=0, r=0, b=0, t=0), paper_bgcolor="#e5ecf6")
-    if __name__ == "__main__()":
+    if __name__ == "__main__":
         ax.show()
     ax.update_layout(autosize=False, width=500, height=800)
     ax.write_image(filename)
