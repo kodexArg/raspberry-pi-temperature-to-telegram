@@ -16,7 +16,7 @@ else:
     import getth_sim as getth
 
 
-def db_cursor() -> mariadb.Cursor:
+def db_cursor() -> mariadb.connection.cursor:
     try:
         dotenv.load_dotenv()
         conn = mariadb.connect(

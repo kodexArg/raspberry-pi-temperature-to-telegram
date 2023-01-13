@@ -16,7 +16,7 @@ Jinja2==3.1.2
 kaleido==0.2.1
 kiwisolver==1.4.4
 loguru==0.6.0
-mariadb==1.1.5.post3
+mariadb==1.0.11
 MarkupSafe==2.1.1
 matplotlib==3.6.2
 mypy-extensions==0.4.3
