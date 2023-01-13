@@ -79,7 +79,7 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     return None
 
 
-def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart.png") -> bool:
+def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart_th.png") -> bool:
     try:
         df = get_mariadb_data()
         df = resample_by_time(df, hours=96, tu="2H")
