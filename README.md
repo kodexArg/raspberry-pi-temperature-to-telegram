@@ -30,7 +30,4 @@ ISRPI=1 for Raspberry, 0 for developer computer. // Switching ISRPI to use getth
 ```
 
 ### Run it as a service
-Set this script to autostart with your raspberry pi. Either load it using crontab or create a service for better control as I did. For this, you can use the sample file 'rpi-db-polling.service:' included in the folder app. I'm soft-linking this file in /etc/systemd/system and using it as is.
-```
-ln -s /home/$USER/app/raspberry-temp-humi/raspberry-temp-humi.service
-```
+Set this script to autostart with your raspberry pi. Either load it using crontab or create a service for better control as I did. For this, you can use the sample file 'kweed.service:' included in the folder app (the example file assumes your path = /App/raspberry-temp-humi)

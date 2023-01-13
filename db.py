@@ -57,3 +57,7 @@ def db_inserts() -> None:
         # todo: sending error to telegram?
         sys.exit()
 
+
+if __name__ == "__main__":
+    db_inserts()
+

@@ -5,10 +5,10 @@ After=mariadb.service
 [Service]
 Type=simple
 Restart=always
-RestartSec=1
+StartLimitIntervalSec=3
 User=kodex
-ExecStart=/usr/bin/python $HOME/app/raspberry-temp-humi/app.py
+WorkingDirectory=/App/raspberry-temp-humi
+ExecStart=/usr/bin/python /App/raspberry-temp-humi/app.py
 
 [Install]
 WantedBy=multi-user.target
-
