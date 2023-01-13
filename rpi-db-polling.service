@@ -1,0 +1,14 @@
+[Unit]
+Description=Raspberry Temp Hum to DDBB service
+After=mariadb.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=kodex
+ExecStart=/usr/bin/python $HOME/app/raspberry-temp-humi/app.py
+
+[Install]
+WantedBy=multi-user.target
+
