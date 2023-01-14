@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
-"""
-    Retrieve 'temphumi' database as DataFrame, group by time intervals and plot as PNG file
+"""Chart to PNG
+
+Retrieve 'temphumi' database as DataFrame, group by time intervals.
+
+chart_th get mariadb's data using Panda's method, so it uses environment variables to connect
+to the database but this module wont use db.py on this project.
+
 """
 
 import os
 from datetime import datetime, timedelta
-import dotenv
 from loguru import logger
+import dotenv
+
+# from pandas import DataFrame, read_sql #Prolly a good idea to implement in raspberry pi....
 from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-
-# from pandas import DataFrame, read_sql #Prolly a good idea to implement in raspberry pi....
 
 dotenv.load_dotenv()
 
@@ -40,50 +45,57 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
     rdf = df[(df["time"] > dtini)]
     print(rdf)
 
-    # Lower and upper bounds and set outliers to NaN (fix: changed to Mean)
+    # Lower and upper bounds and set outliers to NaN in order to discard errors from adafruit_dht
     lb = rdf["temp"].quantile(0.01)
     ub = rdf["temp"].quantile(0.99)
     logger.debug(f"Handling temperature outliers values (Lower>{lb} & Upper<{ub})...")
     rdf = rdf[(rdf["temp"] > lb) & (rdf["temp"] < ub)]
 
     # Setting timestamp as index (DateTimeIndex)
-    logger.debug("Setting 'time' as index...")
+    logger.debug("Setting 'time' field as index (DateTimeIndex)...")
     rdf.index = rdf["time"]
 
     # Grouping and naming aggregated columns
-    logger.debug("Resampling Dataframe and aggregate columns for Max, Mean and Min values...")
+    logger.debug("Aggregate Max, Mean and Min values...")
     rdf = rdf.resample(tu)["temp", "humi"].agg(
         {"temp": [("Min C°", "min"), ("Avg C°", "mean"), ("Max C°", "max")], "humi": [("Hum %", "mean")]}
     )
 
     # Flatten DataFrame
-    logger.debug("Flattening DataFrame")
+    logger.debug("Flattening DataFrame (droplevel and reset_index)...")
     rdf.columns = rdf.columns.droplevel(0)
     rdf.reset_index(inplace=True)
 
-    logger.debug("Done!")
+    logger.debug("Done! Ready to chart it...")
     return rdf
 
 
 def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th.png") -> None:
     logger.info("Plotting...")
-    ax = px.line(df, x="time", y="Avg C°", title="Temperature C°")
+
+    ax = px.line(df, x="time", y="Avg C°", title="Temperature C°")  # omg... line chart? obviously bars... todo!
     ax.update_traces(connectgaps=True, showlegend=False)
     ax.update_yaxes(title=None)
     ax.update_xaxes(title=None)
     ax.update_layout(margin=dict(l=0, r=0, b=0, t=0), paper_bgcolor="#e5ecf6")
+
     if __name__ == "__main__":
         ax.show()
-    ax.update_layout(autosize=False, width=500, height=800)
+    ax.update_layout(autosize=False, width=500, height=800)  # todo: best resolution for mobil?
+
+    # finally: writting the image to disk
     ax.write_image(filename)
+
+    logger.info("Done!")
     return None
 
 
-def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart_th.png") -> bool:
+def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart_th.png") -> str:
     try:
         df = get_mariadb_data()
         df = resample_by_time(df, hours=96, tu="2H")
         plotting_df(df, hours, tu, filename)
+
     except:
         logger.error(
             f"""
@@ -92,7 +104,9 @@ def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart_th.png") 
             """
         )
         return False
-    return True
+
+    else:
+        return filename    
 
 
 if __name__ == "__main__":
