@@ -4,7 +4,7 @@ import cv2
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
-from chart_th import draw_chart
+from kweed_utils.chart_th import draw_chart
 
 logger.info('Telegram bot polling...')
 

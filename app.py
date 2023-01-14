@@ -5,9 +5,9 @@ from pytz import utc
 from apscheduler.schedulers.background import BackgroundScheduler
 import dotenv
 import numpy as np
-from telegram_bot import main as tel_bot
+from kweed_utils.telegram_bot import main as tel_bot
 
-from db import db_inserts
+from kweed_utils.db import db_inserts
 
 # Loading environment and global variables
 dotenv.load_dotenv()
