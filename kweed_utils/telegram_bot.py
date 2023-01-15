@@ -7,7 +7,8 @@ Main functions:
 - send_picture  -> take a picture using take_a_pic.py
 - send_chart    -> chart ddbb and send it using chart_th.py
 """
-
+import os
+from datetime import datetime
 from functools import wraps
 from loguru import logger
 
@@ -17,6 +18,14 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Con
 
 from kweed_utils.take_a_pic import capture
 from kweed_utils.chart_th import draw_chart
+
+
+# Import adafruit_dht on Raspberry PI or a fake number generator
+if os.getenv("ISRPI") == "yes":
+    import kweed_utils.getth
+else:
+    import kweed_utils.getth_sim as getth
+
 
 logger.info("Telegram bot polling...")
 
@@ -31,9 +40,10 @@ def send_action(action):
         @wraps(func)
         async def command_func(update, context, *args, **kwargs):
             await context.bot.send_chat_action(chat_id=update.effective_message.chat_id, action=action)
-            return await func(update, context,  *args, **kwargs)
+            return await func(update, context, *args, **kwargs)
+
         return command_func
-    
+
     return decorator
 
 
@@ -45,7 +55,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 @send_action(ChatAction.UPLOAD_PHOTO)
 async def send_picture(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.info("sending picture...")
-    await update.message.reply_photo(photo=open(func_send_picture(), "rb"))
+    # await update.message.reply_photo(photo=open(func_send_picture(), "rb"))
+    await update.message.reply_text("Sorry, I just broke the camera... this function is not working ATM...")
+
+
+@send_action(ChatAction.TYPING)
+async def send_adafruit_dht_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    logger.info("sending temperature and humidity data as text")
+    await update.message.reply_text(get_temphumi_str())
 
 
 @send_action(ChatAction.UPLOAD_DOCUMENT)
@@ -65,7 +82,15 @@ def func_send_chart() -> str:
 
 
 def func_send_picture() -> str:
-    return capture()
+    # Temporally disable... cause I broke my camera :´(
+    return False
+
+
+def get_temphumi_str():
+    t = getth.get_temp()
+    h = getth.get_humi()
+    result = f"Device time: {datetime.now()}" f"Temperature: {t} C°\n" f"Humidity: {h} %\n"
+    return result
 
 
 def main() -> None:
@@ -76,7 +101,7 @@ def main() -> None:
 
     # Commands handlers
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("picture", send_picture))
+    application.add_handler(CommandHandler("measure", send_adafruit_dht_data))
     application.add_handler(CommandHandler("chart", send_chart))
 
     # Non-commands messages
