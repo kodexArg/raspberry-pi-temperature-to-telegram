@@ -17,9 +17,9 @@ import dotenv
 from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
 
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 dotenv.load_dotenv()
 
@@ -56,15 +56,14 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
     rdf.index = rdf["time"]
 
     # Grouping and naming aggregated columns
-    logger.debug("Aggregate Max, Mean and Min values...")
+    logger.debug("Aggregate Mfig. Mean and Min values...")
     rdf = rdf.resample(tu)["temp", "humi"].agg(
-        {"temp": [("Min C°", "min"), ("Avg C°", "mean"), ("Max C°", "max")], "humi": [("Hum %", "mean")]}
+        {"temp": [("Min C°", "min"), ("Avg C°", "mean"), ("Mfig.C°", "max")], "humi": [("Hum %", "mean")]}
     )
 
     # Flatten DataFrame
-    logger.debug("Flattening DataFrame (droplevel and reset_index)...")
+    logger.debug("Flattening DataFrame...")
     rdf.columns = rdf.columns.droplevel(0)
-    rdf.reset_index(inplace=True)
 
     logger.debug("Done! Ready to chart it...")
     return rdf
@@ -73,40 +72,64 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
 def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th.png") -> None:
     logger.info("Plotting...")
 
-    ax = px.line(df, x="time", y="Avg C°", title="Temperature C°")  # omg... line chart? obviously bars... todo!
-    ax.update_traces(connectgaps=True, showlegend=False)
-    ax.update_yaxes(title=None)
-    ax.update_xaxes(title=None)
-    ax.update_layout(margin=dict(l=0, r=0, b=0, t=0), paper_bgcolor="#e5ecf6")
+    # Instead of go.Figure(), make_subplots create a figure with secondary axis
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Temperature
+    fig.add_trace(
+        go.Scatter(
+            x=df.index,
+            y=df["Avg C°"],
+        ),
+        secondary_y=False,
+    )
+
+    # Humidity
+    fig.add_trace(
+        go.Scatter(
+            x=df.index,
+            y=df["Hum %"],
+        ),
+        secondary_y=True,
+    )
+
+    fig.update_layout(autosize=False, width=500, height=800)  # todo: best resolution for mobil?
+    fig.update_traces(connectgaps=True, showlegend=False)
+    fig.update_yaxes(title="<b>Temperature</b> C°", secondary_y=False)
+    fig.update_yaxes(title="<b>Humidity</b> %", secondary_y=True)
+    fig.update_xaxes(title=None)
+    fig.update_layout(margin=dict(l=0, r=0, b=0, t=0), paper_bgcolor="#e5ecf6", yaxis_range=[20, 40])
 
     if __name__ == "__main__":
-        ax.show()
-    ax.update_layout(autosize=False, width=500, height=800)  # todo: best resolution for mobil?
+        fig.show()
 
-    # finally: writting the image to disk
-    ax.write_image(filename)
+    fig.write_image(filename)
 
     logger.info("Done!")
     return None
 
 
-def draw_chart(hours: int = 96, tu: str = "1H", filename: str = "chart_th.png") -> str:
+def draw_chart(hours: int = 24, tu: str = "1H", filename: str = "chart_th.png") -> str:
     try:
         df = get_mariadb_data()
-        df = resample_by_time(df, hours=96, tu="2H")
+        df = resample_by_time(df, hours, tu)
         plotting_df(df, hours, tu, filename)
 
-    except:
+    except Exception as e:
         logger.error(
             f"""
             Somethng went wrong plotting the chart. The function receive these values:
             \n  hours: {hours}\n  time unit (tu): {tu}\n  Filename: {filename}
+            
+            Error:
+            {e}
             """
         )
+        raise e
         return False
 
     else:
-        return filename    
+        return filename
 
 
 if __name__ == "__main__":

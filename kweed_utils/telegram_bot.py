@@ -4,8 +4,9 @@ Async telegram interface for Telegram Bot Api based on
 https://pypi.org/project/python-telegram-bot/
 
 Main functions:
-- send_picture  -> take a picture using take_a_pic.py
-- send_chart    -> chart ddbb and send it using chart_th.py
+- send_picture -> take a picture using take_a_pic.py
+- send_chart -> chart ddbb and send it using chart_th.py
+- send_adafruit_dht_data -> Current temperature and humidity from adafruit_dht (or demo dht) to string. 
 """
 import os
 from datetime import datetime
@@ -62,7 +63,7 @@ async def send_picture(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 @send_action(ChatAction.TYPING)
 async def send_adafruit_dht_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.info("sending temperature and humidity data as text")
-    await update.message.reply_text(get_temphumi_str())
+    await update.message.reply_text(text=get_temphumi_str(), parse_mode="HTML")
 
 
 @send_action(ChatAction.UPLOAD_DOCUMENT)
@@ -89,7 +90,11 @@ def func_send_picture() -> str:
 def get_temphumi_str():
     t = getth.get_temp()
     h = getth.get_humi()
-    result = f"Device time: {datetime.now()}" f"Temperature: {t} C°\n" f"Humidity: {h} %\n"
+    result = (
+        f"Device time: <b>{datetime.now().strftime('%d/%m/%Y, %H:%M:%S')}</b><br>"
+        f"Temperature: <b>{t}</b> C°<br>"
+        f"Humidity: <b>{h}</b> %<br>"
+    )
     return result
 
 
