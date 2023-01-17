@@ -10,7 +10,7 @@ from loguru import logger
 # Import adafruit_dht on Raspberry PI or a fake number generator
 if os.getenv("ISRPI") == "yes":
     logger.info("using adafruit_dht... (ISRPI=yes)")
-    import kweed_utils.getth
+    import kweed_utils.getth as getth
 else:
     logger.info("DEMO MODE withotu adafruit_dht. It will generate random numbers (ISPRI<>yes)")
     import kweed_utils.getth_sim as getth
