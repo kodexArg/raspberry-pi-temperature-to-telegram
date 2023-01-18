@@ -18,8 +18,9 @@ from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
 
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+# import plotly.graph_objects as go
+# from plotly.subplots import make_subplots
+import plotly.express as px
 
 dotenv.load_dotenv()
 
@@ -78,7 +79,8 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     logger.info("Plotting...")
 
     # Instead of go.Figure(), make_subplots create a figure with secondary axis
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    # fig = make_subplots(specs=[[{"secondary_y": True}]])
+    fig = px.line(df, x='time', y='Avg C°', title="Temperature")
 
     # Temperature
     fig.add_trace(
