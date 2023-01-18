@@ -81,7 +81,7 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     df.reset_index()
     # Instead of go.Figure(), make_subplots create a figure with secondary axis
     # fig = make_subplots(specs=[[{"secondary_y": True}]])
-    fig = px.tline(df, x='time', y='Avg C°', title="Temperature")
+    fig = px.line(df, x='time', y='Avg C°', title="Temperature")
 
     # Temperature
     # fig.add_trace(
