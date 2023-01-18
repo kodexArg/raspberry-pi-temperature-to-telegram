@@ -48,8 +48,8 @@ def resample_by_time(df: pd.DataFrame, hours: int = 24, tu: str = "1H") -> pd.Da
     # Lower and upper bounds and set outliers to NaN in order to discard errors from adafruit_dht
     lb_temp = rdf["temp"].quantile(0.01)
     ub_temp = rdf["temp"].quantile(0.99)
-    lb_humi = rdf["humi"].quantile(0.01)
-    ub_humi = rdf["humi"].quantile(0.99)
+    lb_humi = rdf["humi"].quantile(0.05)
+    ub_humi = rdf["humi"].quantile(0.95)
 
     logger.debug("Handling temperature outliers values")
     rdf = rdf[(rdf["temp"] > lb_temp) & (rdf["temp"] < ub_temp)]
