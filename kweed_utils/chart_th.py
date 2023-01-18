@@ -83,13 +83,13 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     fig = px.line(df, y='Avg C°', title="Temperature")
 
     # Temperature
-    fig.add_trace(
-        go.Scatter(
-            x=df.index,
-            y=df["Avg C°"],
-        ),
-        secondary_y=False,
-    )
+    # fig.add_trace(
+    #     go.Scatter(
+    #         x=df.index,
+    #         y=df["Avg C°"],
+    #     ),
+    #     secondary_y=False,
+    # )
 
     # Humidity
     # fig.add_trace(
