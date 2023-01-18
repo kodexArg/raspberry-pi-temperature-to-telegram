@@ -91,9 +91,9 @@ def get_temphumi_str():
     t = getth.get_temp()
     h = getth.get_humi()
     result = (
-        f"Device time: <b>{datetime.now().strftime('%d/%m/%Y, %H:%M:%S')}</b><br>"
-        f"Temperature: <b>{t}</b> C°<br>"
-        f"Humidity: <b>{h}</b> %<br>"
+        f"Device time: <b>{datetime.now().strftime('%d/%m/%Y, %H:%M:%S')}</b>\n"
+        f"Temperature: <b>{t}</b> C°\n"
+        f"Humidity: <b>{h}</b> %\n"
     )
     return result
 
