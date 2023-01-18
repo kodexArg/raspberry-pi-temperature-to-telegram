@@ -90,18 +90,18 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     )
 
     # Humidity
-    fig.add_trace(
-        go.Scatter(
-            x=df.index,
-            y=df["Hum %"],
-        ),
-        secondary_y=True,
-    )
+    # fig.add_trace(
+    #     go.Scatter(
+    #         x=df.index,
+    #         y=df["Hum %"],
+    #     ),
+    #     secondary_y=True,
+    # )
 
     fig.update_layout(autosize=False, width=500, height=800)  # todo: best resolution for mobil?
     fig.update_traces(connectgaps=True, showlegend=False)
     fig.update_yaxes(title="<b>Temperature</b> C°", secondary_y=False)
-    fig.update_yaxes(title="<b>Humidity</b> %", secondary_y=True)
+    # fig.update_yaxes(title="<b>Humidity</b> %", secondary_y=True)
     fig.update_xaxes(title=None)
     fig.update_layout(margin=dict(l=0, r=0, b=0, t=0), paper_bgcolor="#e5ecf6", yaxis_range=[20, 40])
 
