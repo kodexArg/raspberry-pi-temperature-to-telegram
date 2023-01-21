@@ -5,6 +5,7 @@ import dotenv
 import mariadb
 import numpy as np
 from loguru import logger
+from sqlalchemy import create_engine
 
 
 # Import adafruit_dht on Raspberry PI or a fake number generator
@@ -16,10 +17,16 @@ else:
     import kweed_utils.getth_sim as getth
 
 
+def get_mariadb_data():
+    conn_local = f"mariadb+mariadbconnector://{os.getenv('DBUSER')}:{os.getenv('DBPASS')}@{os.getenv('DBHOST')}/rpi"
+    conn_remote = f"mariadb+mariadbconnector://{os.getenv('REMOTEDBUSER')}:{os.getenv('REMOTEDBPASS')}@{os.getenv('REMOTEDBHOST')}/rpi"
+    engine = create_engine(conn_str)
+
+
 def db_cursor() -> mariadb.connection.cursor:
     try:
         dotenv.load_dotenv()
-        conn = mariadb.connect(
+        conn_local = mariadb.connect(
             user=os.getenv("DBUSER", "root"),
             password=os.getenv("DBPASS", "root"),
             host=os.getenv("DBHOST", "localhost"),
@@ -32,7 +39,20 @@ def db_cursor() -> mariadb.connection.cursor:
         logger.error(f"Exit with error:\n{e}")
         sys.exit(1)
 
-    return conn.cursor()
+    try:
+        conn_remote = mariadb.connect(
+            user=os.getenv("REMOTEDBUSER", "root"),
+            password=os.getenv("REMOTEDBPASS", "root"),
+            host=os.getenv("REMOTEDBHOST", "localhost"),
+            port=3306,
+            database="rpi",
+            autocommit=True,
+        )
+    
+    except mariadb.Error as e:
+        logger.error(f"Connection fail to remote database...")
+        
+        
 
 
 def if_nan_go_null(value):
@@ -60,4 +80,3 @@ def db_inserts() -> None:
 
 if __name__ == "__main__":
     db_inserts()
-
