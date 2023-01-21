@@ -9,9 +9,9 @@ ATTEMPT = 5
 TIME_RETRY = 1
 
 if os.getenv("DHT") == 11:
-    dht = adafruit_dht.DHT11(board.D4, use_pulseio=False)
+    dht = adafruit_dht.DHT11(os.getenv("BOARD"), use_pulseio=False)
 else:
-    dht = adafruit_dht.DHT22(board.D4, use_pulseio=False)
+    dht = adafruit_dht.DHT22(os.getenv("BOARD"), use_pulseio=False)
 
 
 def dht_reading(ask_for):
