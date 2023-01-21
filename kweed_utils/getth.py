@@ -2,11 +2,16 @@ from time import sleep
 import board
 import adafruit_dht
 import numpy as np
+import dotenv
+import os
 
 ATTEMPT = 5
 TIME_RETRY = 1
 
-dht = adafruit_dht.DHT11(board.D4, use_pulseio=False)
+if os.getenv("DHT") == 11:
+    dht = adafruit_dht.DHT11(board.D4, use_pulseio=False)
+else:
+    dht = adafruit_dht.DHT22(board.D4, use_pulseio=False)
 
 
 def dht_reading(ask_for):
