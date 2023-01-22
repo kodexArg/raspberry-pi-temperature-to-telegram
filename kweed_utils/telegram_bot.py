@@ -103,9 +103,10 @@ def main() -> None:
     application = ApplicationBuilder().token("5695082717:AAESRDnBZ9hTOTdSnkB-ZFce_YayldkNBZY").build()
 
     # Commands handlers
-    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("picture", send_picture))
     application.add_handler(CommandHandler("measure", send_adafruit_dht_data))
     application.add_handler(CommandHandler("chart", send_chart))
+    
 
     # Non-commands messages
     application.add_handler(MessageHandler(filters=filters.TEXT & ~filters.COMMAND, callback=echo))
