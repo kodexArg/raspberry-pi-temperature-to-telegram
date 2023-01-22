@@ -7,8 +7,8 @@ Returns:
 import cv2
 
 
-def capture(picpath: str = "capture.jpg") -> str:
+def capture(pic_path: str = "capture.jpg") -> str:
     capture = cv2.VideoCapture(0)
     _, image = capture.read()
-    cv2.imwrite(picpath, image)
-    return picpath
+    cv2.imwrite(pic_path, image)
+    return pic_path
