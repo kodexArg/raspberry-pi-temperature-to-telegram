@@ -15,13 +15,10 @@ import time
 from loguru import logger
 from pytz import utc
 from apscheduler.schedulers.background import BackgroundScheduler
-import dotenv
-
 from kweed_utils.telegram_bot import main as tel_bot
 from kweed_utils.db import db_inserts
 
 # Loading environment and global variables
-dotenv.load_dotenv()
 start_time = time.time()
 
 

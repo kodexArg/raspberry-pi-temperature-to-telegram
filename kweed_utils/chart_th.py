@@ -22,7 +22,7 @@ import numpy as np
 # from plotly.subplots import make_subplots
 import plotly.express as px
 
-dotenv.load_dotenv()
+dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 
 def get_mariadb_data() -> pd.DataFrame:

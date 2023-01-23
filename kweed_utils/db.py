@@ -8,7 +8,7 @@ from loguru import logger
 
 
 # Import adafruit_dht on Raspberry PI or a fake number generator
-dotenv.load_dotenv()
+dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 if os.getenv("ISRPI") == "yes":
     logger.info("using adafruit_dht... (ISRPI=yes)")
     import kweed_utils.getth as getth
@@ -17,7 +17,7 @@ else:
     import kweed_utils.getth_sim as getth
 
 
-def db_cursor(islocal) -> mariadb.connection.cursor:
+def db_cursor(islocal:bool = True) -> mariadb.connection.cursor:
     if islocal:
         user_ = os.getenv("DBUSER", "root")
         pass_ = os.getenv("DBPASS", "root")
@@ -52,7 +52,7 @@ def if_nan_go_null(value):
     if np.isnan(value):
         return "NULL"
     else:
-        return np.int32(value)
+        return np.float32(value)
 
 
 def db_inserts(islocal:bool=True) -> None:

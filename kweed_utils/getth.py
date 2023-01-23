@@ -8,6 +8,7 @@ import os
 ATTEMPT = 5
 TIME_RETRY = 1
 
+dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 if os.getenv("DHT") == 11:
     dht = adafruit_dht.DHT11(os.getenv("BOARD"), use_pulseio=False)
 else:
@@ -18,9 +19,9 @@ def dht_reading(ask_for):
     for attempt in range(ATTEMPT):
         try:
             if ask_for == "temperature":
-                val = np.int32(dht.temperature)
+                val = np.float32(dht.temperature)
             elif ask_for == "humidity":
-                val = np.int32(dht.humidity)
+                val = np.float32(dht.humidity)
             else:
                 raise Exception('Valid choices are "temperature" or "humidity"')
         except:

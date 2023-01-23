@@ -12,6 +12,7 @@ import os
 from datetime import datetime
 from functools import wraps
 from loguru import logger
+import dotenv
 
 from telegram import Update, Bot
 from telegram.constants import ChatAction
@@ -22,6 +23,7 @@ from kweed_utils.chart_th import draw_chart
 
 
 # Import adafruit_dht on Raspberry PI or a fake number generator
+dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 if os.getenv("ISRPI") == "yes":
     import kweed_utils.getth as getth
 else:
