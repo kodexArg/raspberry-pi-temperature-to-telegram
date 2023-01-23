@@ -23,7 +23,7 @@ from kweed_utils.chart_th import draw_chart
 
 
 # Import adafruit_dht on Raspberry PI or a fake number generator
-dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+dotenv.load_dotenv()
 if os.getenv("ISRPI") == "yes":
     import kweed_utils.getth as getth
 else:

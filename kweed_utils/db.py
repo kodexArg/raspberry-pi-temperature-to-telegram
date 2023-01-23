@@ -8,7 +8,7 @@ from loguru import logger
 
 
 # Import adafruit_dht on Raspberry PI or a fake number generator
-dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+dotenv.load_dotenv()
 if os.getenv("ISRPI") == "yes":
     logger.info("using adafruit_dht... (ISRPI=yes)")
     import kweed_utils.getth as getth
