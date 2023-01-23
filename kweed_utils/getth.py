@@ -9,10 +9,10 @@ ATTEMPT = 5
 TIME_RETRY = 1
 
 dotenv.load_dotenv()
-if os.getenv("DHT") == 11:
-    dht = adafruit_dht.DHT11(os.getenv("BOARD"), use_pulseio=False)
+if os.getenv("DHT") == "11":
+    dht = adafruit_dht.DHT11(os.getenv("BOARD"))
 else:
-    dht = adafruit_dht.DHT22(os.getenv("BOARD"), use_pulseio=False)
+    dht = adafruit_dht.DHT22(os.getenv("BOARD"))
 
 
 def dht_reading(ask_for):
