@@ -58,7 +58,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 @send_action(ChatAction.UPLOAD_PHOTO)
 async def send_picture(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.info("sending picture...")
-    await update.message.reply_photo(photo=open(func_send_chart(), "rb"))
+    await update.message.reply_photo(photo=open(func_send_picture(), "rb"))
 
 
 @send_action(ChatAction.TYPING)
@@ -84,7 +84,9 @@ def func_send_chart() -> str:
 
 
 def func_send_picture() -> str:
-    return capture(os.path.join(os.path.dirname(__file__)), 'images', 'capture.jpg')
+    pic_path = f"{os.path.join(os.path.dirname(__name__), 'images', 'capture.jpg')}"
+    capture(pic_path)
+    return pic_path
 
 
 def get_temphumi_str():
