@@ -80,7 +80,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def func_send_chart() -> str:
-    return draw_chart(hours=48, tu="1H", filename="chart.png")
+    return draw_chart(hours=48, tu="1H", filename=os.path.join(os.path.dirname(__name__), "images", "chart.png"))
 
 
 def func_send_picture() -> str:

@@ -76,7 +76,6 @@ def plotting_df(df: pd.DataFrame, hours: int, tu: str, filename: str = "chart_th
     logger.info("Plotting...")
 
     df.reset_index()
-    logger.info(df)
     # Instead of go.Figure(), make_subplots create a figure with secondary axis
     # fig = make_subplots(specs=[[{"secondary_y": True}]])
     fig = px.line(df, x=df.index, y='Avg C°', line_shape='spline')
